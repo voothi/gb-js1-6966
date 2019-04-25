@@ -1,19 +1,21 @@
-
 let tCelsius = null;
 let tFahrenheit = null;
-let ScaleOfTemperature = "tCelsius";
 
-function tInputUser(ScaleOfTemperature) {
-    if (ScaleOfTemperature == "tCelsius") {
-        tCelsiusParam = prompt("Введите температуру в градусах по Цельсию: ");
-    }
-    return tCelsiusParam;
+tCelsius = tInputUser();
+tCelsius = tSetDefault(tCelsius);
+tFahrenheit = tConvertCelsiusToFahrenheit(tCelsius);
+tOutputUser(tCelsius, tFahrenheit);
+
+function tInputUser() {
+    return prompt("Введите температуру в градусах по Цельсию: ");
 }
 
 function tSetDefault(tCelsiusParam) {
     if (tCelsiusParam == "") {
-        alert("Вы не ввели значение - присвоено 0 в градусах по Цельсию");
-        tCelsiusParam = 0;
+        tCelsiusParam = alert("Вы не ввели значение - присвоено 0 в градусах по Цельсию");
+        return tCelsiusParam = 0;
+    } else {
+        return tCelsiusParam;
     }
 }
 
@@ -24,9 +26,3 @@ function tConvertCelsiusToFahrenheit(tCelsiusParam) {
 function tOutputUser(tCelsiusParam, tFahrenheitParam) {
     return alert("Температура " + tCelsiusParam + " градусов по Цельсию равна " + tFahrenheitParam + " градусам по Фаренгейту");
 }
-
-
-tCelsius = tInputUser(ScaleOfTemperature);
-tCelsius = tSetDefault(tCelsius);
-tFahrenheit = tConvertCelsiusToFahrenheit(tCelsius);
-tOutputUser(tCelsius, tFahrenheit);
