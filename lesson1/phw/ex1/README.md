@@ -18,3 +18,5 @@ tConvertCelsiusToFahrenheit()
 
 ## Вывод результата конвертера
 tOutputUser()
+
+Готово
