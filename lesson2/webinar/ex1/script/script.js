@@ -1,4 +1,4 @@
-// Присваивание
-let num = 0;
-num++;
-console.log(num);
+// 2 Операнда
+true && false;
+
+// Тернарный
