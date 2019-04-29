@@ -1,3 +1,3 @@
 // Логическое ИЛИ - ||
-let test = 5 > 2 || alert("test");
+let test = false || false || true;
 console.log(test);
