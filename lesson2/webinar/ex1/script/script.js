@@ -1,1 +1,1 @@
-// Обсуждали JSDoc
+// ConvertCurrency пример
