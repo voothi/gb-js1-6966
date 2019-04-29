@@ -1,4 +1,4 @@
 // 2 Операнда
-true && false;
+console.log(true && false);
 
 // Тернарный
