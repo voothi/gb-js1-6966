@@ -1,4 +1,4 @@
 // Присваивание
-let value = 9;
-value = -value;
-console.log(value);
+let num = 0;
+num++;
+console.log(num);
