@@ -1,4 +1,13 @@
-// Тернарный оператор
-let constantClient = confirm("Вы постоялец?")
-let discount = constantClient ? 30 : 10;
-alert(`Ваша скидка ${discount}`);
+// Case
+let day = prompt("Введите день недели");
+switch (day) {
+    case "пн":
+        console.log("Это Пн");
+        break;
+    case "вт":
+        console.log("Это Вт");
+    break;
+    default:
+        console.log("Что это?")
+    break;
+}
