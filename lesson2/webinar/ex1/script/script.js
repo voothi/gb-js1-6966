@@ -1,3 +1,3 @@
 // Не - !
-let test = !false;
+let test = false || undefined;
 console.log(test);
