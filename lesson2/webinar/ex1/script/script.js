@@ -1,3 +1,3 @@
-// Логическое ИЛИ - ||
-let test = false || false || true;
+// Не - !
+let test = !false;
 console.log(test);
