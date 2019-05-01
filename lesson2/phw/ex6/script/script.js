@@ -1,4 +1,18 @@
-howMoneyPutToBank = prompt("Введите сумму в рублях в виде целого числа для зачисления на счет: ");
+let howMoneyPutToBank = +prompt(
+    `
+Введите сумму в рублях в виде целого числа для зачисления на счет: 
+    `);
+
+// messageToUser('consoleLogMessage', isInteger(howMoneyPutToBank));
+
+/**
+ * Функция для проверки на целое число
+ * @param {number} howMoneyPutToBank Число
+ * @returns {boolean} Целое ли число
+ */
+function isInteger(howMoneyPutToBank) {
+    return (howMoneyPutToBank ^ 0) === howMoneyPutToBank;
+}
 
 /**
  * Функция rubleNumEnds склоняет рубли
@@ -44,14 +58,9 @@ function getLastSymbol(howMoneyPutToBank) {
  * Функция messageToUser выводит результат в консоль или в окно, в зависимости от флага
  * @param {string} messageOutTo.consoleLogMessage Флаг для вывода в консоль
  * @param {string} messageOutTo.alarmMessage Флаг для вывода в окно
- * @param {string} howMoneyPutToBank
+ * @param {string} messageContent Получает сообщение, которое требуется вывести
  */
-function messageToUser(messageOutTo, howMoneyPutToBank) {
-    let messageContent =
-        `
-Вы внесли на свой счет ${howMoneyPutToBank} ${rubleNumEnds(howMoneyPutToBank)}
-        `;
-
+function messageToUser(messageOutTo, messageContent) {
     switch (messageOutTo) {
         case 'consoleLogMessage':
             return console.log(messageContent);
@@ -64,5 +73,21 @@ function messageToUser(messageOutTo, howMoneyPutToBank) {
     }
 }
 
-messageToUser('consoleLogMessage', howMoneyPutToBank);
-messageToUser('alarmMessage', howMoneyPutToBank);
+let messageContent =
+    `
+Вы внесли на свой счет ${howMoneyPutToBank} ${rubleNumEnds(howMoneyPutToBank)}
+    `;
+
+let messageErrorInput =
+    `
+Ошибка ввода: ${howMoneyPutToBank}. Попробуйте ещё раз.
+Сумма должна быть положительным целым числом. 
+    `;
+
+if (isInteger(howMoneyPutToBank) && howMoneyPutToBank >= 0) {
+    messageToUser('consoleLogMessage', messageContent);
+    messageToUser('alarmMessage', messageContent);
+} else {
+    messageToUser('consoleLogMessage', messageErrorInput);
+    messageToUser('alarmMessage', messageErrorInput);
+}
