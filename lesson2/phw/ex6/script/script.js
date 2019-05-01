@@ -3,8 +3,6 @@ let howMoneyPutToBank = +prompt(
 Введите сумму в рублях в виде целого числа для зачисления на счет: 
     `);
 
-// messageToUser('consoleLogMessage', isInteger(howMoneyPutToBank));
-
 /**
  * Функция для проверки на целое число
  * @param {number} howMoneyPutToBank Число
@@ -75,7 +73,7 @@ function messageToUser(messageOutTo, messageContent) {
 
 let messageContent =
     `
-Вы внесли на свой счет ${howMoneyPutToBank} ${rubleNumEnds(howMoneyPutToBank)}
+Вы внесли на свой счет ${howMoneyPutToBank} ${rubleNumEnds(howMoneyPutToBank)}.
     `;
 
 let messageErrorInput =
