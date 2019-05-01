@@ -31,3 +31,8 @@ a = ${a}, b = ${b}
 Деление ${mathOpsDivision(a, b)}
     `
 );
+
+export default mathOpsAddition;
+export default mathOpsSubtraction;
+export default mathOpsMultiplication;
+export default mathOpsMultiplication;
