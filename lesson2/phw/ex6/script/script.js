@@ -1,5 +1,4 @@
 howMoneyPutToBank = prompt("Введите сумму в рублях в виде целого числа для зачисления на счет: ");
-// let howMoneyPutToBank = 12345;
 
 /**
  * Функция rubleNumEnds склоняет рубли
@@ -38,24 +37,8 @@ function rubleNumEnds(howMoneyPutToBank) {
  */
 function getLastSymbol(howMoneyPutToBank) {
     let numInStr = String(howMoneyPutToBank);
-    //     console.log(
-    //         `
-    // numInStr 
-    // значение: ${numInStr} 
-    // тип: ${typeof (numInStr)} 
-    // длина: ${numInStr.length}
-    // последний символ: ${numInStr.charAt(numInStr.length - 1)}
-    //          `
-    //     );
-
     return numInStr.charAt(numInStr.length - 1);
 }
-
-// console.log(
-//     `
-// ${getLastSymbol(howMoneyPutToBank)}
-//     `
-// );
 
 /**
  * Функция messageToUser выводит результат в консоль или в окно, в зависимости от флага
@@ -70,7 +53,7 @@ function messageToUser(messageOutTo, howMoneyPutToBank) {
         `;
 
     switch (messageOutTo) {
-        case 'consoleLogMessage': 
+        case 'consoleLogMessage':
             return console.log(messageContent);
             break;
         case 'alarmMessage':
