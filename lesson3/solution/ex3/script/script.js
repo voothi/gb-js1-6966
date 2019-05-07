@@ -16,5 +16,10 @@ const products = [
     },
 ];
 
-const productsWithDiscount = products.map(item => item.price - item.price * 0.5);
+// const productsWithDiscount = products.map(item => item.price - item.price * 0.5);
+
+const productsWithDiscount = products.map(function (index) {
+    return index.price - index.price * 0.5;
+});
+
 console.log(productsWithDiscount);

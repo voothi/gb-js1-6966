@@ -13,6 +13,7 @@ const products = [
     },
 ];
 
-console.log(products);
-
-console.log(products.map(function () { return  * 2 }));
+console.log(products.map(function (index) {
+    return index.price - index.price * 0.5;
+})
+);
