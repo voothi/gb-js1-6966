@@ -22,3 +22,12 @@ const post = {
         },
     ]
 }
+
+console.log(
+    `
+${post.author}
+${post.commments[0].rating.dislikes}
+${post.commments[1].userId}
+${post.commments[1].text}
+    `
+);
