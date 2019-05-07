@@ -12,3 +12,7 @@ const products = [
         price: 1000,
     },
 ];
+
+console.log(products);
+
+console.log(products.map(function () { return  * 2 }));
