@@ -30,4 +30,14 @@ const productsWithPhotos = products.filter(
             return true;
     });
 console.log(productsWithPhotos);
-// "photos" in item
+
+const sortedFromLowPriceToHigh = products.sort(function (item1, item2) {
+    if (item1.price < item2.price) {
+        return -1;
+    }
+    if (item1.price > item2.price) {
+        return 1;
+    }
+    return 0;
+});
+console.log(sortedFromLowPriceToHigh);
