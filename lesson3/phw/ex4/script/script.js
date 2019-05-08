@@ -26,8 +26,8 @@ const products = [
 
 const productsWithPhotos = products.filter(
     item => {
-        if ("photos" in item && item.photos.length > 0)
+        if (item["photos"] && item.photos.length > 0)
             return true;
     });
 console.log(productsWithPhotos);
-
+// "photos" in item
