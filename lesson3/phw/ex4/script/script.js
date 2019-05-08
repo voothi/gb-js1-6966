@@ -23,3 +23,11 @@ const products = [
         price: 78,
     },
 ];
+
+const productsWithPhotos = products.filter(
+    item => {
+        if ("photos" in item && item.photos.length > 0)
+            return true;
+    });
+console.log(productsWithPhotos);
+
