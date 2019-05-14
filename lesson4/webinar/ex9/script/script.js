@@ -1,17 +1,21 @@
 "use strict";
 
-function User (name) { 
-    this.name = name;
+class User {
+    constructor() {
+        this.name = name;
+    }
+
+    static nameMaxLength = 20;
+
+    static isNameLengthCorrect(name) {
+        if (name.length <= this.nameMaxLength) {
+            console.log("Correct");
+        } else {
+            console.log("Incorrect");
+        }
+    }
 }
 
-User.nameMaxLength = 20;
-User.isNameLengthCorrect = function () {
-    if (name.length <= User.nameMaxLength) {
-        console.log("Correct");
-    } else {
-        console.log("Incorrect");
-    }
-};
 
 const user1 = new User("Denis");
 User.isNameLengthCorrect(user1.name);
