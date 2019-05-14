@@ -1,9 +1,18 @@
 "use strict";
 
-class Person {
-    name = "Denis";
-    age = 31;
+class User {
+    constructor(name, surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    get fullName() {
+        return this.name + " " + this.surname;
+    }
 }
 
-const person1 = new Person;
-console.log(person1);
+const user1 = new User("Denis", "Novikov");
+console.log(user1.name);
+console.log(user1.surname);
+console.log(user1.fullName);
+
