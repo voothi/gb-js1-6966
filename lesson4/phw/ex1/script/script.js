@@ -1,42 +1,36 @@
 "use strict";
 
-const numInput = 123;
-let arr = numInput.toString().split("");
-// console.log(arr[0]);
-let obj = { ...arr };
-// let keys = Object.keys(obj);
+function numToObj(num) {
+if (!Number.isInteger(num) || num <= 0 || num >= 999) {
+    console.log("Введите целое число из [0, 999]");
+    return {};
+}
 
-// let map = {
-//     0: "firstDigit",
-//     1: "secondDigit",
-//     2: "thirdDigit"
-// };
+const obj = Object.create(null);
+obj.firstDigit = Math.floor(num / 100); 
+obj.secondDigit = Math.floor(num / 10) % 10;
+obj.thirdDigit = num % 10;
 
-const map = ["firstDigit", "secondDigit", "thirdDigit"];
+return obj;
+}
 
-// let obj = {};
-// obj.test = 1;
+console.log(numToObj(123));
 
-arr.forEach(function (index) {
-    return index = map[index];
-});
 
-// obj.forEach(function (currentValue) {
-//     return index.price - index.price * 0.5;
+// Не работает добивка нулями
+// let num = +prompt("Введите целое число из [0, 999]: ");
+// if (Number.isInteger(num) && num >= 0 && num <= 999) {
+//     let num1 = new numToObj(num);
+//     console.log(num1);
+// } else {
+//     alert("Попробуйте еще...");
 // }
 
-// +prompt();
-
-// function Digit(numInput) {
-
-    // arr[1];
-    // arr[2];
-
-    // 
-
-    // return obj;
+// function numToObj(num) {
+//     let arr = num.toString().split("");
+//     let obj = { ...arr };
+//     this.firstDigit = obj[0];
+//     this.secondDigit = obj[1];
+//     this.thirdDigit = obj[2];
 // }
 
-// obj.forEach
-
-// Digit(123);
