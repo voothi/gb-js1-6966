@@ -4,7 +4,7 @@ let game = {
      */
     run() {
         // Бесконечный цикл
-        while (true) {
+        for (; ;) {
             // Получаем направление от игрока.
             const direction = mover.getDirection();
 
@@ -15,11 +15,12 @@ let game = {
             }
             // Получаем следующую точку пользователя в зависимости от направления.
             const nextPoint = mover.getNextPosition(direction);
-            
+            if (mover.canPlayerMakeStep(nextPoint)) {
                 renderer.clear();
                 player.move(nextPoint);
                 renderer.render();
-           
+            }
+
         }
     },
 
