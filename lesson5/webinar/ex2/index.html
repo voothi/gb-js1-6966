@@ -7,17 +7,36 @@
 </head>
 
 <body>
-    <ul>
-        <li class="prod">test</li> 
-        <li>test</li> 
-        <li>test</li> 
-    </ul>
-    <p>Привет, параграф</p>
-    <i class="prod">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, velit neque. Dolor excepturi quo saepe sit doloremque earum corrupti. Voluptas est rem modi quidem provident voluptates unde consequatur repellat quod.</i>
-    <p>Это параграф</p>
+    <fieldset title="Регистрационная форма">
+        <legend>Регистрационная форма</legend>
+        <form action="/feedback">
+            <div>
+                <input type="text" placeholder="Логин" name="login" size="40"><br>
+                <input type="password" placeholder="Пароль" name="passwd" size="40"><br>
+                <input type="text" placeholder="Почта" name="email" size="40"><br>
+            </div>
+            <div>
+                <fieldset title="Загрузить аватар">
+                    <legend>Загрузить аватар</legend>
+                    <input type="file" name="avatar" value="Аватар" formenctype="multipart/form-data"><br>
+                </fieldset>
+            </div>
+            <fieldset>
+                <legend>Получать новости</legend>
+                <input type="radio" name="male" checked>Да<br>
+                <input type="radio" name="male">Нет<br>
+            </fieldset>
+            <input type="checkbox" name="policy" checked>Принимаю политику<br>
+            <input type="checkbox" name="saveLogin">Оставаться в системе<br>
+            <input type="submit" name="button" value="Передать форму"><br>
+            <input type="reset" name="reset" value="Сбросить форму"><br>
+
+        </form>
+    </fieldset>
+
     <script>
         "use strict"
-        let one = document.getElementsByClassName("prod");
+        let one = document.querySelectorAll();
         console.log(one);
         // console.dir(one);
     </script>
