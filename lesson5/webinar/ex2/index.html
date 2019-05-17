@@ -7,16 +7,19 @@
 </head>
 
 <body>
-    <h1>Привет, боди!</h1>
-    <p id="one">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quis debitis sapiente nobis
-        suscipit vero
-        ratione est, id obcaecati deleniti totam maxime ullam odit alias qui nihil unde saepe excepturi.</p>
-    <a href="#" target="_blank">#</a>
+    <ul>
+        <li class="prod">test</li> 
+        <li>test</li> 
+        <li>test</li> 
+    </ul>
+    <p>Привет, параграф</p>
+    <i class="prod">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, velit neque. Dolor excepturi quo saepe sit doloremque earum corrupti. Voluptas est rem modi quidem provident voluptates unde consequatur repellat quod.</i>
+    <p>Это параграф</p>
     <script>
         "use strict"
-        let one = window.document.getElementById("one");
+        let one = document.getElementsByClassName("prod");
         console.log(one);
-        console.dir(one);
+        // console.dir(one);
     </script>
 </body>
 
