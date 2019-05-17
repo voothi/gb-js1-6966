@@ -12,7 +12,7 @@
         <form action="/feedback">
             <div>
                 <input type="text" placeholder="Логин" name="login" size="40"><br>
-                <input type="password" placeholder="Пароль" name="passwd" size="40"><br>
+                <input type="text" placeholder="Пароль" name="passwd" size="40"><br>
                 <input type="text" placeholder="Почта" name="email" size="40"><br>
             </div>
             <div>
@@ -36,7 +36,7 @@
 
     <script>
         "use strict"
-        let one = document.querySelectorAll();
+        let one = document.querySelectorAll('form[action="/feedback"] input');
         console.log(one);
         // console.dir(one);
     </script>
