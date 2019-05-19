@@ -11,9 +11,9 @@
         Hello, <span hidden>World</span>
     </div>
     <script>
-        let form = document.querySelector("div").textContent;
-        console.log(form);
-        console.dir(form);
+        let p = document.createElement("p");
+        p.innerText = "text";
+        document.querySelector("div").appendChild(p);
     </script>
 </body>
 
