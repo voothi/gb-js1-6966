@@ -7,12 +7,12 @@
 </head>
 
 <body>
-    <form>
-        <input type="text" name="test" placeholder="test"><br>
-        <input type="button" name="test-btn" value="Кнопка"><br>
-    </form>
+    <div class="product">
+        <img src="https://meduza.io/image/attachments/images/002/040/117/large/DfoJ1jdCAxgjAwo7FQN9aA.png" alt="Товар">
+        <button>Купить</button>
+    </div>
     <script>
-        let form = document.forms;
+        let form = document.querySelector(".product").children;
         console.log(form);
         console.dir(form);
     </script>
