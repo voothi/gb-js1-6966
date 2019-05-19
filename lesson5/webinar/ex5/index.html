@@ -2,16 +2,25 @@
 <html lang="en">
 
 <head>
-    <button>Кнопка</button>
+    <button class="checkEvent"> Конопка для проверки</button>
+    <button class="switchOff">Отключить обработчик</button>
 
     <script>
         "use strict"
 
-        window.addEventListener("keydown", function (event) {
-            console.log(event);
+        let clickFn = function (event) {
+            console.log(event)
+        }
+
+        let checkEvent = document.querySelector(".checkEvent");
+        checkEvent.addEventListener("click", clickFn);
+
+        let switchOff = document.querySelector(".switchOff");
+        switchOff.addEventListener("click", function () {
+            checkEvent.removeEventListener("click", clickFn);
         });
 
     </script>
-</body>
+    </body>
 
 </html>
