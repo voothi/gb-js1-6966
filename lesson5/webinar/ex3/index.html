@@ -7,38 +7,14 @@
 </head>
 
 <body>
-    <fieldset title="Регистрационная форма">
-        <legend>Регистрационная форма</legend>
-        <form action="/feedback">
-            <div class="id1">
-                <input type="text" placeholder="Логин" name="login" size="40"><br>
-                <input type="text" placeholder="Пароль" name="passwd" size="40"><br>
-                <input type="text" placeholder="Почта" name="email" size="40"><br>
-            </div>
-            <div class="id1">
-                <fieldset title="Загрузить аватар">
-                    <legend>Загрузить аватар</legend>
-                    <input type="file" name="avatar" value="Аватар" formenctype="multipart/form-data"><br>
-                </fieldset>
-            </div>
-            <fieldset>
-                <legend>Получать новости</legend>
-                <input type="radio" name="male" checked>Да<br>
-                <input type="radio" name="male">Нет<br>
-            </fieldset>
-            <input type="checkbox" name="policy" checked>Принимаю политику<br>
-            <input type="checkbox" name="saveLogin">Оставаться в системе<br>
-            <input type="submit" name="button" value="Передать форму"><br>
-            <input type="reset" name="reset" value="Сбросить форму"><br>
-
-        </form>
-    </fieldset>
-
+    <form>
+        <input type="text" name="test" placeholder="test"><br>
+        <input type="button" name="test-btn" value="Кнопка"><br>
+    </form>
     <script>
-        "use strict"
-        let one = document.querySelector(".id1");
-        console.log(one);
-        // console.dir(one);
+        let form = document.forms;
+        console.log(form);
+        console.dir(form);
     </script>
 </body>
 
