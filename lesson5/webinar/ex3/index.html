@@ -8,12 +8,10 @@
 
 <body>
     <div class="product">
-        Hello str!
-        <img src="https://meduza.io/image/attachments/images/002/040/117/large/DfoJ1jdCAxgjAwo7FQN9aA.png" alt="Товар">
-        <button>Купить</button>
+        Hello, <span hidden>World</span>
     </div>
     <script>
-        let form = document.querySelector(".product").childNodes;
+        let form = document.querySelector("div").textContent;
         console.log(form);
         console.dir(form);
     </script>
