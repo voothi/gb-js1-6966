@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <title>Модальное окно</title>
     <style>
-        .c_button {
+        .c_button_on {
+            padding: 10px;
+            background: green;
+        }
+
+        .c_button_off {
             padding: 10px;
             background: red;
         }
@@ -20,7 +25,9 @@
 
 <body>
     <p></p>
-    <button class="c_button">Кнопка</button>
+    <button class="c_button_on">On</button>
+    <button class="c_button_off">Off</button>
+
     <div class="c_modal">
         Модальное окно
     </div>
@@ -28,12 +35,22 @@
     <script>
         "use strict"
 
-        let button = document.querySelector(".c_button");
+        let button_on = document.querySelector(".c_button_on");
+        let button_off = document.querySelector(".c_button_off");
         let modal = document.querySelector(".c_modal");
 
-        button.addEventListener("click", function (event) {
-            
-        });
+        let switchModalWindowToOn = function (event) {
+            // console.log(event);
+            modal.style.display = "block";
+        }
+
+        let switchModalWindowToOff = function (event) {
+            modal.style.display = "none";
+        }
+
+        button_on.addEventListener("click", switchModalWindowToOn);
+        button_off.addEventListener("click", switchModalWindowToOff);
+
     </script>
 </body>
 
