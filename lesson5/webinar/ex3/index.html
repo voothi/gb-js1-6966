@@ -24,8 +24,9 @@
 
     <script>
         "use strict"
-        let list = document.querySelector("ul");
-        list.parentNode.removeChild(list);
+        let h2 = document.querySelector("h2");
+        // h2.remove()
+        setTimeout(function () { h2.remove(); }, 1000);
 
         console.log(list);
     </script>
