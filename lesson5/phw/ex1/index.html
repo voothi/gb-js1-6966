@@ -3,12 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Модальное окно</title>
+    <style>
+        .c_button {
+            padding: 10px;
+            background: red;
+        }
+        .c_modal {
+            align-content: center;
+            background: grey;
+            display: none;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <p></p>
-    <script src="script/script.js"></script>
+    <button class="c_button">Кнопка</button>
+    <div class="c_modal">
+        Модальное окно
+    </div>
+    <!-- <script src="script/script.js"></script> -->
+    <script>
+        "use strict"
+
+        let button = document.querySelector(".c_button");
+        let modal = document.querySelector(".c_modal");
+
+        button.addEventListener("click", function (event) {
+            
+        });
+    </script>
 </body>
 
 </html>
