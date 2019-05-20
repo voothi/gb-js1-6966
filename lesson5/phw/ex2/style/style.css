@@ -1,0 +1,19 @@
+body {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-gap: 20px;
+}
+
+.product {
+    width: 150px;
+}
+
+img {
+    display: block;
+    margin-top: 10px;
+}
+
+button {
+    display: block;
+    margin-top: 15px;
+}
