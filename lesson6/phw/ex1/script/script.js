@@ -19,7 +19,7 @@ for (var i = 0; i < imgData.length; i++) {
         .appendChild(insertImg);
 }
 
-window.addEventListener("load", function (event) {
+window.addEventListener("load", function () {
     getSliderClassListCurrentElement().remove("hidden");
 });
 
