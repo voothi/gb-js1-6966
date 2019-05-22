@@ -17,7 +17,17 @@ window.addEventListener("load", function (event) {
 });
 
 
-let buttonRight = document.querySelector(".btn-right");
-buttonRight.addEventListener("click", function (event) {
-
+document.querySelector(".btn-right").addEventListener("click", function (event) {
+    document
+        .querySelector(".slider")
+        .querySelectorAll("img")[indexCurrent]
+        .classList.add("hidden");
+    indexCurrent++;
+    if (indexCurrent > imgData.length - 1) {
+        indexCurrent = 0;
+    }
+    document
+        .querySelector(".slider")
+        .querySelectorAll("img")[indexCurrent]
+        .classList.remove("hidden");
 });
