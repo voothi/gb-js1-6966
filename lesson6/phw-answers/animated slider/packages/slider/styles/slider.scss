@@ -1,0 +1,67 @@
+.slider {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    &-item {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center center;
+        }
+    }
+    &-leftArrow,
+    &-rightArrow {
+        position: absolute;
+        top: 47%;
+        z-index: 3;
+        color: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        font-size: 50px;
+        filter: drop-shadow(0 0 2px black);
+        transition: 0.1s;
+        &:hover {
+            color: rgb(255, 255, 255);
+            transform: scale(1.1, 1.1);
+        }
+    }
+    &-leftArrow {
+        left: 5%;
+    }
+    &-rightArrow {
+        right: 5%;
+    }
+    &-goLeft {
+        animation: slideLeft 1s forwards;
+    }
+    &-goRight {
+        animation: slideRight 1s forwards;
+    }
+}
+
+@keyframes slideLeft {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
+}

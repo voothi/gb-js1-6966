@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="packages/slider/styles/slider.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="slider" data-width="" data-height="">
+        <div class="slider-item">
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <!-- preload -->
+    <div style="display: none;">
+        <img src="https://placeimg.com/1920/1080/animals" alt="">
+        <img src="https://placeimg.com/1920/1080/tech" alt="">
+        <img src="https://placeimg.com/1920/1080/nature" alt="">
+    </div>
+
+    <script src="packages/slider/scripts/slider.js"></script>
+    <script>
+        images.init([
+            {src: "https://placeimg.com/1920/1080/animals"},
+            {src: "https://placeimg.com/1920/1080/tech"},
+            {src: "https://placeimg.com/1920/1080/nature"}
+        ]);
+    </script>
+</body>
+</html>
