@@ -7,23 +7,21 @@ let indexCurrent = 0;
  * @returns {DOMTokenList} Возвращает токены, массивообразный объект, элементы которого - строки
  */
 function getSliderClassListCurrentElement() {
-    return document
-        .querySelector(".slider")
+    return document.querySelector(".slider")
         .querySelectorAll("img")[indexCurrent].classList;
 }
 
-
 for (var i = 0; i < imgData.length; i++) {
-    let insertImg = document.createElement("img");
-    insertImg.setAttribute("src", imgData[i].url);
-    insertImg.classList.add("hidden");
-    document.querySelector(".slider").appendChild(insertImg);
+    document.createElement("img")
+        .setAttribute("src", imgData[i].url)
+        .classList.add("hidden");
+    document.querySelector(".slider")
+        .appendChild(insertImg);
 }
 
 window.addEventListener("load", function (event) {
     getSliderClassListCurrentElement().remove("hidden");
 });
-
 
 document.querySelector(".btn-right").addEventListener("click", function () {
     getSliderClassListCurrentElement().add("hidden");
@@ -41,5 +39,4 @@ document.querySelector(".btn-left").addEventListener("click", function () {
         indexCurrent = indexMax;
     }
     getSliderClassListCurrentElement().remove("hidden");
-
 });
