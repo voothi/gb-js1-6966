@@ -12,9 +12,9 @@ function getSliderClassListCurrentElement() {
 }
 
 for (var i = 0; i < imgData.length; i++) {
-    document.createElement("img")
-        .setAttribute("src", imgData[i].url)
-        .classList.add("hidden");
+    let insertImg = document.createElement("img");
+    insertImg.setAttribute("src", imgData[i].url);
+    insertImg.classList.add("hidden");
     document.querySelector(".slider")
         .appendChild(insertImg);
 }
