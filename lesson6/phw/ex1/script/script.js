@@ -2,10 +2,14 @@
 let indexMax = imgData.length - 1;
 let indexCurrent = 0;
 
+/**
+ * @description Получает классы элемента
+ * @returns {DOMTokenList} Возвращает токены, массивообразный объект, элементы которого - строки
+ */
 function getSliderClassListCurrentElement() {
     return document
         .querySelector(".slider")
-        .querySelectorAll("img")[indexCurrent];
+        .querySelectorAll("img")[indexCurrent].classList;
 }
 
 
@@ -21,32 +25,21 @@ window.addEventListener("load", function (event) {
 });
 
 
-document.querySelector(".btn-right").addEventListener("click", function (event) {
-    document
-        .querySelector(".slider")
-        .querySelectorAll("img")[indexCurrent]
-        .classList.add("hidden");
+document.querySelector(".btn-right").addEventListener("click", function () {
+    getSliderClassListCurrentElement().add("hidden");
     indexCurrent++;
     if (indexCurrent > indexMax) {
         indexCurrent = 0;
     }
-    document
-        .querySelector(".slider")
-        .querySelectorAll("img")[indexCurrent]
-        .classList.remove("hidden");
+    getSliderClassListCurrentElement().remove("hidden");
 });
 
-document.querySelector(".btn-left").addEventListener("click", function (event) {
-    document
-        .querySelector(".slider")
-        .querySelectorAll("img")[indexCurrent]
-        .classList.add("hidden");
+document.querySelector(".btn-left").addEventListener("click", function () {
+    getSliderClassListCurrentElement().add("hidden");
     indexCurrent--;
     if (indexCurrent < 0) {
         indexCurrent = indexMax;
     }
-    document
-        .querySelector(".slider")
-        .querySelectorAll("img")[indexCurrent]
-        .classList.remove("hidden");
+    getSliderClassListCurrentElement().remove("hidden");
+
 });

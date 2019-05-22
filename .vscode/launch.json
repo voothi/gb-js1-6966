@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://gb-js1-6966/lesson5/webinar/ex1",
+            "url": "http://gb-js1-6966/lesson6/phw/ex1",
             "webRoot": "${workspaceFolder}"
         }
     ]
