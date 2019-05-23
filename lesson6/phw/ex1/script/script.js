@@ -30,6 +30,7 @@ document.querySelector(".btn-right").addEventListener("click", function () {
         indexCurrent = 0;
     }
     getSliderClassListCurrentElement().remove("hidden");
+    getSliderClassListCurrentElement().add("slider-goLeft");
 });
 
 document.querySelector(".btn-left").addEventListener("click", function () {
