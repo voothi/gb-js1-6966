@@ -4,8 +4,10 @@ let snake = {
     body: null,
     direction: null,
     lastStepDirection: null,
+    maxX: null,
+    maxY: null,
 
-    init(startPoint, direction) {
+    init(startPoint, direction, maxX, maxY) {
         // this.body = [
         //     {x: 5, y: 5}, это голова
         //     {x: 6, y: 5},
@@ -14,6 +16,8 @@ let snake = {
         this.body = [startPoint];
         this.lastStepDirection = direction;
         this.direction = direction;
+        this.maxX = maxX;
+        this.maxY = maxY;
     },
 
     getNextStepHeadPoint() {
@@ -21,13 +25,13 @@ let snake = {
 
         switch (this.direction) {
             case 'up':
-                return {x: firstPoint.x, y: firstPoint.y - 1};
+                return {x: firstPoint.x, y: firstPoint.y !== 0 ? firstPoint.y - 1 : this.maxY};
             case 'down':
-                return {x: firstPoint.x, y: firstPoint.y + 1};
+                return {x: firstPoint.x, y: firstPoint.y !== this.maxY ? firstPoint.y + 1 : 0};
             case 'right':
-                return {x: firstPoint.x + 1, y: firstPoint.y};
+                return {x: firstPoint.x !== this.maxX ? firstPoint.x + 1 : 0, y: firstPoint.y};
             case 'left' :
-                return {x: firstPoint.x - 1, y: firstPoint.y};
+                return {x: firstPoint.x !== 0 ? firstPoint.x - 1 : this.maxX, y: firstPoint.y};
         }
     },
 
@@ -236,7 +240,12 @@ let game = {
 
         this.score.drop();
 
-        this.snake.init(this.getStartSnakePoint(), 'up');
+        this.snake.init(
+            this.getStartSnakePoint(), 
+            'up',
+            this.settings.colsCount - 1, 
+            this.settings.rowsCount - 1
+        );
 
         this.food.setFoodCoordinates(this.getRandomCoordinates());
 
@@ -300,11 +309,7 @@ let game = {
     canSnakeMakeStep() {
         let nextHeadPoint = this.snake.getNextStepHeadPoint();
 
-        return !this.snake.isBodyPoint(nextHeadPoint) &&
-               nextHeadPoint.x < this.settings.colsCount &&
-               nextHeadPoint.y < this.settings.rowsCount &&
-               nextHeadPoint.x >= 0 &&
-               nextHeadPoint.y >= 0;
+        return !this.snake.isBodyPoint(nextHeadPoint);
     },
 
     setEventHandlers() {
