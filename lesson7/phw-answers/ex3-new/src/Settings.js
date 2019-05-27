@@ -5,8 +5,10 @@ class Settings {
      * @param {number} params.colsCount - количество колонок игрового поля.
      * @param {number} params.speed - скорость перемещения змейки.
      * @param {number} params.winLength - какую длину надо наесть, чтобы выиграть.
+     * @throws {Error} если переданы не верные настройки выбрасывается
+     * соответствующая ошибка.
      */
-    constructor(params) {
+    init(params) {
         let defaultParams = {rowsCount: 21, colsCount: 21, speed: 2, winLength: 50};
         Object.assign(defaultParams, params);
 

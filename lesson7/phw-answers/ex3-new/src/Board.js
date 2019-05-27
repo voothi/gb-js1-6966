@@ -1,13 +1,17 @@
 class Board {
+    constructor() {
+        this.boardEl = document.getElementById('game');
+    }
+
     /**
+     * Метод получает другие игровые объекты, которые нужны ему
+     * для работы.
      * @param {Settings} settings объект настроек.
      * @param {Snake} snake объект змейки.
      */
-    constructor(settings, snake) {
+    init(settings, snake) {
         this.settings = settings;
         this.snake = snake;
-
-        this.boardEl = document.getElementById('game');
     }
 
     /**
@@ -30,8 +34,6 @@ class Board {
      * Метод отрисовывает змейку на доске.
      */
     renderSnake() {
-        const snakeHeadEl = this.getCellEl(this.snake.head.x, this.snake.head.y);
-        snakeHeadEl.classList.add('snakeHead');
         const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
         if (snakeBodyElems) {
             snakeBodyElems.forEach(function(tdEl) {
@@ -40,6 +42,9 @@ class Board {
         }
     }
 
+    /**
+     * Метод очищает игровое поле.
+     */
     clearBoard() {
         const tdElems = document.querySelectorAll('td');
         tdElems.forEach(function(td) {
@@ -80,7 +85,7 @@ class Board {
      * @param {Object} nextCellCoords - координаты ячейки, куда змейка собирается сделать шаг.
      * @param {number} nextCellCoords.x
      * @param {number} nextCellCoords.y
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     isNextStepToWall(nextCellCoords) {
         let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
@@ -90,12 +95,22 @@ class Board {
         return false;
     }
 
+    /**
+     * Метод рисует еду на игровом поле.
+     * @param {Object} coords будущее расположение еды на поле
+     * @param {number} coords.x координата x
+     * @param {number} coords.y координата y
+     */
     renderFood(coords) {
         const foodCell = this.getCellEl(coords.x, coords.y);
         foodCell.classList.add('food');
     }
 
+    /**
+     * Метод проверяет съела ли змейка еду.
+     * @returns {boolean} true если змейка находится на еде, иначе false.
+     */
     isHeadOnFood() {
-        return this.boardEl.querySelector('.snakeHead').classList.contains('food');
+        return this.boardEl.querySelector('.food').classList.contains('snakeBody');
     }
 }
