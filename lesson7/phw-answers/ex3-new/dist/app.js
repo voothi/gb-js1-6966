@@ -1,13 +1,17 @@
 class Board {
+    constructor() {
+        this.boardEl = document.getElementById('game');
+    }
+
     /**
+     * Метод получает другие игровые объекты, которые нужны ему
+     * для работы.
      * @param {Settings} settings объект настроек.
      * @param {Snake} snake объект змейки.
      */
-    constructor(settings, snake) {
+    init(settings, snake) {
         this.settings = settings;
         this.snake = snake;
-
-        this.boardEl = document.getElementById('game');
     }
 
     /**
@@ -30,8 +34,6 @@ class Board {
      * Метод отрисовывает змейку на доске.
      */
     renderSnake() {
-        const snakeHeadEl = this.getCellEl(this.snake.head.x, this.snake.head.y);
-        snakeHeadEl.classList.add('snakeHead');
         const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
         if (snakeBodyElems) {
             snakeBodyElems.forEach(function(tdEl) {
@@ -40,6 +42,9 @@ class Board {
         }
     }
 
+    /**
+     * Метод очищает игровое поле.
+     */
     clearBoard() {
         const tdElems = document.querySelectorAll('td');
         tdElems.forEach(function(td) {
@@ -80,7 +85,7 @@ class Board {
      * @param {Object} nextCellCoords - координаты ячейки, куда змейка собирается сделать шаг.
      * @param {number} nextCellCoords.x
      * @param {number} nextCellCoords.y
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     isNextStepToWall(nextCellCoords) {
         let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
@@ -90,38 +95,66 @@ class Board {
         return false;
     }
 
+    /**
+     * Метод рисует еду на игровом поле.
+     * @param {Object} coords будущее расположение еды на поле
+     * @param {number} coords.x координата x
+     * @param {number} coords.y координата y
+     */
     renderFood(coords) {
         const foodCell = this.getCellEl(coords.x, coords.y);
         foodCell.classList.add('food');
     }
 
+    /**
+     * Метод проверяет съела ли змейка еду.
+     * @returns {boolean} true если змейка находится на еде, иначе false.
+     */
     isHeadOnFood() {
-        return this.boardEl.querySelector('.snakeHead').classList.contains('food');
+        return this.boardEl.querySelector('.food').classList.contains('snakeBody');
     }
 }
 class Food {
-    constructor(settings, snake, board) {
+    constructor() {
         this.x = null;
         this.y = null;
+    }
 
+    /**
+     * Метод получает другие игровые объекты, которые нужны ему
+     * для работы.
+     * @param {Settings} settings объект настроек
+     * @param {Snake} snake объект змейки
+     * @param {Board} board объект игрового поля
+     */
+    init(settings, snake, board) {
         this.settings = settings;
         this.snake = snake;
         this.board = board;
     }
 
-    init() {
-        this.setNewFood();
-    }
-
+    /**
+     * Метод устанавливает новое случайное положение еды на игровом
+     * поле.
+     */
     setNewFood() {
         const coords = this.generateRandomCoordinates();
         this.board.renderFood(coords);
     }
 
+    /**
+     * Метод устанавливает на игровом поле еду по текущим
+     * координатам.
+     */
     setFood() {
         this.board.renderFood(this);
     }
 
+    /**
+     * Метод генерирует новый объект еды со случайным
+     * положением на игровом поле
+     * @returns {Food}
+     */
     generateRandomCoordinates() {
         while (true) {
             this.x = Math.floor(Math.random() * this.settings.colsCount);
@@ -131,7 +164,7 @@ class Food {
             if (cell === null) {
                 continue;
             }
-            if (cell.classList.contains('snakeHead') || cell.classList.contains('snakeBody')) {
+            if (cell.classList.contains('snakeBody')) {
                 continue;
             }
             return this;
@@ -139,33 +172,45 @@ class Food {
     }
 }
 class Game {
-    /**
+    constructor() {
+        this.tickIdentifier = null;
+        this.messageEl = document.getElementById('message');
+    }
+
+    /** 
+     * Метод получает другие игровые объекты, которые нужны ему
+     * для работы.
      * @param {Settings} settings 
      * @param {Status} status
      * @param {Board} board
      * @param {Snake} snake
      * @param {Menu} menu
      * @param {Food} food
+     * @param {Score} score
      */
-    constructor(settings, status, board, snake, menu, food) {
+    init(settings, status, board, snake, menu, food, score) {
         this.settings = settings;
         this.status = status;
         this.board = board;
         this.snake = snake;
         this.menu = menu;
         this.food = food;
-
-        this.tickIdentifier = null;
-        this.messageEl = document.getElementById('message');
+        this.score = score;
     }
 
-    init() {
-        this.board.renderBoard();
-        this.board.renderSnake();
-        this.menu.addButtonsClickListeners(this.start.bind(this), this.pause.bind(this), this.newGame.bind(this));
+    /**
+     * Метод назначает обработчики на события клика на кнопки "Старт",
+     * "Пауза", а также на стрелки на клавиатуре.
+     */
+    run() {
+        this.score.setToWin(this.settings.winLength);
+        this.menu.addButtonsClickListeners(this.start.bind(this), this.pause.bind(this));
         document.addEventListener('keydown', this.pressKeyHandler.bind(this));
     }
 
+    /**
+     * Метод запускает игру.
+     */
     start() {
         if (this.status.isPaused()) {
             this.status.setPlaying();
@@ -173,6 +218,9 @@ class Game {
         }
     }
 
+    /**
+     * Метод ставит игру на паузу.
+     */
     pause() {
         if (this.status.isPlaying()) {
             this.status.setPaused();
@@ -180,27 +228,56 @@ class Game {
         }
     }
 
-    newGame() {
-        console.log('new game');
-    }
-
+    /**
+     * Этот метод запускается каждую секунду и осуществляет:
+     * 1. перемещение змейки
+     * 2. проверяет проиграна/выиграна ли игра
+     * 3. увеличивает размер змейки если она ест еду
+     * 4. заново отрисовывает положение змейки и еды
+     */
     doTick() {
-        this.snake.changeHeadCoords();
-        if (this.isGameLost()) {
+        this.snake.performStep();
+        this.score.setCurrent(this.snake.body.length);
+        if (this.isSnakeSteppedOntoItself()) {
+            return;
+        }
+        if (this.isGameWon()) {
             return;
         }
         if (this.board.isHeadOnFood()) {
-            // this.snake.increaseBody();
+            this.snake.increaseBody();
             this.food.setNewFood();
         }
-        // this.snake.changeBodyCoords();
         this.board.clearBoard();
         this.food.setFood();
         this.board.renderSnake();
     }
 
-    isGameLost() {
-        if (this.board.isNextStepToWall(this.snake.head)) {
+    /**
+     * Метод проверяет выиграна ли игра, останавливает игру,
+     * выводит сообщение о выигрыше.
+     * @returns {boolean} если длина змейки достигла длины нужной
+     * для выигрыша, тогда true, иначе false.
+     */
+    isGameWon() {
+        if (this.snake.body.length == this.settings.winLength) {
+            clearInterval(this.tickIdentifier);
+            this.setMessage('Вы выиграли');
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Метод проверяет съела ли змейка сама себя.
+     * @returns {boolean}
+     */
+    isSnakeSteppedOntoItself() {
+        let cellArr = this.snake.body.map(function (cellCoords) {
+            return cellCoords.x.toString() + cellCoords.y.toString();
+        });
+        let head = cellArr.shift();
+        if (cellArr.includes(head)) {
             clearInterval(this.tickIdentifier);
             this.setMessage('Вы проиграли');
             return true;
@@ -209,7 +286,26 @@ class Game {
     }
 
     /**
-     * В зависимости от нажатой кнопки (вверх, вниз, влево, вправо) будет вызываться соответствующий метод.
+     * @deprecated Метод больше не используется, т.к. теперь
+     * змейка может проходить через стены.
+     * 
+     * Метод проверяет проиграна ли игра, останавливает игру
+     * в случае проигрыша, выводит сообщение о проигрыше.
+     * @returns {boolean} если мы шагнули в стену, тогда
+     * true, иначе false.
+     */
+    isGameLost() {
+        if (this.board.isNextStepToWall(this.snake.body[0])) {
+            clearInterval(this.tickIdentifier);
+            this.setMessage('Вы проиграли');
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * В зависимости от нажатой кнопки (вверх, вниз, влево, вправо) будет 
+     * вызываться соответствующий метод.
      * @param {KeyboardEvent} event 
      */
     pressKeyHandler(event) {
@@ -229,22 +325,36 @@ class Game {
         }
     }
 
+    /**
+     * Метод выводит сообщение на странице.
+     * @param {string} text 
+     */
     setMessage(text) {
         this.messageEl.innerText = text;
     }
 }
 window.addEventListener('load', () => {
-    const settings = new Settings({ speed: 5, winLength: 5 });
+    const settings = new Settings();
     const status = new Status();
     const snake = new Snake();
-    const board = new Board(settings, snake);
+    const board = new Board();
     const menu = new Menu();
-    const food = new Food(settings, snake, board);
-    const game = new Game(settings, status, board, snake, menu, food);
-    game.init();
-    food.init();
-    // board.renderSnake(snake);
-    // console.dir(status);
+    const food = new Food();
+    const game = new Game();
+    const score = new Score();
+    
+    settings.init({ speed: 5, winLength: 10 });
+    snake.init(settings);
+    board.init(settings, snake);
+    food.init(settings, snake, board);
+    game.init(settings, status, board, snake, menu, food, score);
+    score.init(settings);
+
+    board.renderBoard();
+    board.renderSnake(snake);
+
+    food.setNewFood();
+    game.run();
 });
 class Menu {
     constructor() {
@@ -252,9 +362,45 @@ class Menu {
         this.pauseBtnEl = document.getElementById('pauseBtn');
     }
 
-    addButtonsClickListeners(startBtnClickHandler, pauseBtnClickHandler, newGameBtnClickHandler) {
+    /**
+     * Метод назначает переданные функции в качестве обработчиков
+     * событий клика на кнопки "Старт" и "Пауза".
+     * @param {Function} startBtnClickHandler 
+     * @param {Function} pauseBtnClickHandler 
+     */
+    addButtonsClickListeners(startBtnClickHandler, pauseBtnClickHandler) {
         this.startBtnEl.addEventListener('click', startBtnClickHandler);
         this.pauseBtnEl.addEventListener('click', pauseBtnClickHandler);
+    }
+}
+class Score {
+    constructor() {
+        this.currentEl = document.querySelector('.current');
+        this.toWinEl = document.querySelector('.toWin');
+    }
+
+    /**
+     * @param {Settings} settings настройки игры
+     */
+    init(settings) {
+        this.settings = settings;
+    }
+
+    /**
+     * Метод устанавливает текущий счет игрока.
+     * @param {string} text 
+     */
+    setCurrent(text) {
+        this.currentEl.textContent = text;
+    }
+
+    /**
+     * Метод устанавливает количество очков, необходимых
+     * для выигрыша.
+     * @param {string} text 
+     */
+    setToWin(text) {
+        this.toWinEl.textContent = text;
     }
 }
 class Settings {
@@ -264,8 +410,10 @@ class Settings {
      * @param {number} params.colsCount - количество колонок игрового поля.
      * @param {number} params.speed - скорость перемещения змейки.
      * @param {number} params.winLength - какую длину надо наесть, чтобы выиграть.
+     * @throws {Error} если переданы не верные настройки выбрасывается
+     * соответствующая ошибка.
      */
-    constructor(params) {
+    init(params) {
         let defaultParams = {rowsCount: 21, colsCount: 21, speed: 2, winLength: 50};
         Object.assign(defaultParams, params);
 
@@ -294,13 +442,19 @@ class Snake {
     constructor() {
         this.possibleDirections = ['down', 'up', 'left', 'right'];
 
-        this.head = {
+        this.body = [{
             x: 1,
             y: 1,
-        };
-        this.body = [];
+        }];
 
         this.direction = 'down';
+    }
+
+    /**
+     * @param {Settings} settings настройки игры
+     */
+    init(settings) {
+        this.settings = settings;
     }
 
     /**
@@ -318,6 +472,13 @@ class Snake {
         this.direction = newDirection;
     }
 
+    /**
+     * Метод проверяет, является ли переданное направление, противоположным
+     * тому куда сейчас движется змейка.
+     * @param {string} newDirection новое направление, может быть up, down, right, left.
+     * @returns {boolean} true если новое направление противоположно текущему,
+     * иначе false.
+     */
     isPassedOppositeDirection(newDirection) {
         if (this.direction == 'down' && newDirection == 'up') {
             return true;
@@ -334,68 +495,66 @@ class Snake {
         return false;
     }
 
-    changeHeadCoords() {
+    /**
+     * Метод осуществляет шаг змейки. Добавляет ячейку перед существующим
+     * положением головы и удаляет одну ячейку в хвосте.
+     */
+    performStep() {
+        let currentHeadCoords = this.body[0];
+        let newHeadCoords = {
+            x: currentHeadCoords.x,
+            y: currentHeadCoords.y,
+        };
         switch (this.direction) {
             case "down":
-                this.head.y++;
+                newHeadCoords.y++;
                 break;
             case "up":
-                this.head.y--;
+                newHeadCoords.y--;
                 break;
             case "left":
-                this.head.x--;
+                newHeadCoords.x--;
                 break;
             case "right":
-                this.head.x++;
+                newHeadCoords.x++;
                 break;
         }
-    }
 
-    changeBodyCoords() {
-        for (let bodyCell of this.body) {
-            switch (this.direction) {
-                case "down":
-                    bodyCell.y++;
-                    break;
-                case "up":
-                    bodyCell.y--;
-                    break;
-                case "left":
-                    bodyCell.x--;
-                    break;
-                case "right":
-                    bodyCell.x++;
-                    break;
-            }
+        //если голова уходит за правый край
+        if (newHeadCoords.x > this.settings.colsCount) {
+            newHeadCoords.x = 1;
         }
+        //если голова уходит за нижний край
+        if (newHeadCoords.y > this.settings.rowsCount) {
+            newHeadCoords.y = 1;
+        }
+        //если голова уходит за левый край
+        if (newHeadCoords.x == 0) {
+            newHeadCoords.x = this.settings.colsCount;
+        }
+        //если голова уходит за верхний край
+        if (newHeadCoords.y == 0) {
+            newHeadCoords.y = this.settings.rowsCount;
+        }
+
+        this.body.unshift(newHeadCoords);
+        this.body.pop();
     }
 
+    /**
+     * Метод дублирует в массиве объектов представляющих тело змейки
+     * последнюю ячейку, т.е. в массиве в конце оказываются два
+     * одинаковых объекта. Когда метод performStep в самом конце
+     * удаляет последний элемент массива, он удаляет сдублированный
+     * объект, таким образом тело змейки растет.
+     */
     increaseBody() {
-        console.log('increase body');
-        let lastHeadPosition = {}
-        Object.assign(lastHeadPosition, this.head);
-        
-        if (this.body.length == 0) {
-            switch (this.direction) {
-                case "down":
-                    lastHeadPosition.y = this.head.y - 1;
-                    break;
-                case "up":
-                    lastHeadPosition.y = this.head.y + 1;
-                    break;
-                case "left":
-                    lastHeadPosition.x = this.head.x + 1;
-                    break;
-                case "right":
-                    lastHeadPosition.x = this.head.x - 1;
-                    break;
-            }
-            console.log(lastHeadPosition);
-            throw "1";
-            this.body.push(lastHeadPosition);
-        }
-        console.log(this.body);
-        throw "ew";
+        let bodyLastCell = this.body[this.body.length - 1];
+        let newBodyLastCell = {
+            x: bodyLastCell.x,
+            y: bodyLastCell.y,
+        };
+        this.body.push(newBodyLastCell);
     }
 }
 /** Здесь будет хранится статус игры, например играем мы, завершили или остановлено. */
@@ -414,20 +573,15 @@ class Status {
         this.condition = 'paused';
     }
 
-    /** Это значит что игра завершена. */
-    setFinished() {
-        this.condition = 'finished';
-    }
-
     /**
-     * @returns {Boolean} если мы сейчас играем, тогда true, иначе false.
+     * @returns {boolean} если мы сейчас играем, тогда true, иначе false.
      */
     isPlaying() {
         return this.condition === 'playing';
     }
 
     /**
-     * @returns {Boolean} если сейчас игра на паузе, тогда true, иначе false.
+     * @returns {boolean} если сейчас игра на паузе, тогда true, иначе false.
      */
     isPaused() {
         return this.condition === 'paused';
